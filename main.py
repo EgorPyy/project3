@@ -1,8 +1,9 @@
 list = []
-my_file = open('d:/data.txt', 'w+', encoding='utf-8')
+with open('d:/data.txt', 'r', encoding='utf-8') as f:
+    for line in f:
+        list.append(line)
 while True:
     thing = input ('Что у вас?')
-    my_file.write(thing + '\n')
     if thing:
         list.append(thing)
         print('Спасибо')
@@ -13,4 +14,8 @@ while True:
             print('Вот вам',last_thing)
         else:
             print('Извините,подойдите позже')
-my_file.close()
+    if thing == 'QUIT':
+        list.remove('QUIT')
+        break
+with open('d:/data.txt', 'w', encoding='utf-8') as f:
+    f.writelines([i + '\n' for i in list])
