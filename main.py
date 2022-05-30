@@ -15,9 +15,13 @@ while True:
     if not thing:
         if len(user_dict) > 0:
             last_thing = user_dict[-1]
-            last_name = last_thing.setdefault('name')
-            last_number = last_thing.setdefault('amount')
-            user_dict.pop()
+            last_name = last_thing.get('name')
+            last_number = last_thing.get('amount')
+            if last_number > 1:
+                last_thing.update(amount = last_number - 1)
+                last_number = 1
+            else:
+                user_dict.pop()
             print('Вот вам', last_name, last_number, '(шт)')
         else:
             print('Извините,подойдите позже')
@@ -25,6 +29,6 @@ while True:
         user_dict.remove({'name': 'QUIT', 'amount': 0})
         break
 
-list1 = str(user_dict)
+list = str(user_dict)
 with open('d:/data.txt','w',encoding='utf-8') as f:
-    f.write(list1)
+    f.write(list)
